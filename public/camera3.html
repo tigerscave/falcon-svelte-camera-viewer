@@ -1,0 +1,20 @@
+<!-- 本プログラムはあくまでも参考例です。このプログラムに関してのサポートはできません。 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- sample1.html パン/チルト制御パッドと動画像表示フレームの組み合わせ -->
+<HTML>
+<HEAD>
+<TITLE>Sample1</TITLE>
+</HEAD>
+<FRAMESET COLS="123,*" FRAMEBORDER=0 BORDER=0 FRAMESPACING=0>
+ <FRAMESET ROWS="175,*">
+ </FRAMESET>
+ <FRAME SRC="http://192.168.1.240:7011/ImageViewer?Mode=Motion&Resolution=320x240&Quality=Standard&Interval=10"
+NAME="right">
+ <NOFRAMES>
+ <BODY>
+ <!-- フレーム未対応ブラウザのユーザーへの対応のための HTML を記載する -->
+ フレームに対応したブラウザでご覧ください。
+ </BODY>
+ </NOFRAMES>
+</FRAMESET>
+</HTML>

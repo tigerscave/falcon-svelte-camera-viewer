@@ -1,0 +1,28 @@
+<!-- 本プログラムはあくまでも参考例です。このプログラムに関してのサポートはできません。 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
+<!-- sample1.html パン/チルト制御パッドと動画像表示フレームの組み合わせ -->
+<HTML>
+<HEAD>
+<TITLE>Sample1</TITLE>
+</HEAD>
+<FRAMESET COLS="123,*" FRAMEBORDER=0 BORDER=0 FRAMESPACING=0>
+ <FRAMESET ROWS="175,*">
+ <!-- 左上フレーム：第一のカメラのパンチルト制御パッド表示フレーム -->
+ <FRAME BGCOLOR="#C4CEEF" SCROLLING=no SRC="frame/control1.html" NAME="Control">
+ <!-- 左下フレーム：パンチルト制御 CGI 応答用ダミーフレーム -->
+ <!-- 注意：このフレーム名"Message"は"frame/control1.html"内部で使用しています。-->
+ <FRAME BGCOLOR="#C4CEEF" SCROLLING=no SRC="frame/dummy.html" NAME="Message">
+ </FRAMESET>
+ <!-- 右フレーム：動画像表示フレーム -->
+ <!-- プログラム中の"xx.xx.xx.xxx"に第一のカメラの URL を入れてください。-->
+ <!-- "xx.xx.xx.xxx"が間違っているとページを表示できない旨のコメントが表示されます。 -->
+ <FRAME SRC="http://192.168.1.241:7011/ImageViewer?Mode=Motion&Resolution=320x240&Quality=Standard&Interval=10"
+NAME="right">
+ <NOFRAMES>
+ <BODY>
+ <!-- フレーム未対応ブラウザのユーザーへの対応のための HTML を記載する -->
+ フレームに対応したブラウザでご覧ください。
+ </BODY>
+ </NOFRAMES>
+</FRAMESET>
+</HTML>
