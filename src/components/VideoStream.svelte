@@ -2,7 +2,7 @@
   export let ipAddress = ''
   let isEditing = !ipAddress
 
-  function toggleEditing(btnName) {
+  function toggleEditing() {
 
     isEditing = !isEditing
   }
@@ -14,14 +14,14 @@
   {#if isEditing}
     <div class="ip-input-box">
       <input class="input-ip" type="input" bind:value={ipAddress} />
-      <input class="input-btn"  type="button" value="保存" on:click={() => toggleEditing('保存')} />
+      <input class="input-btn"  type="button" value="保存" on:click={toggleEditing} />
     </div>
   {:else}
     <div class="ip-add-box" >
       <p class="show-ip" >
         {ipAddress}
       </p>
-      <button class="input-btn" on:click={() => toggleEditing('編集')}>編集</button>
+      <button class="input-btn" on:click={toggleEditing}>編集</button>
     </div>
   {/if}
 
