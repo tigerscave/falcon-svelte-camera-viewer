@@ -3,10 +3,8 @@
   let isEditing = !ipAddress
 
   function toggleEditing(btnName) {
-    console.log("Before change STATE: ",btnName, isEditing)
 
     isEditing = !isEditing
-    console.log("After change STATE: ",btnName, isEditing)
   }
 </script>
 
@@ -66,5 +64,5 @@
     margin: 0;
     color: white;
   }
-
+  
 </style>
