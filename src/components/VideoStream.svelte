@@ -2,21 +2,28 @@
   export let ipAddress = ''
   let isEditing = !ipAddress
 
-  function toggleEditing() {
+  function toggleEditing(btnName) {
+    console.log("Before change STATE: ",btnName, isEditing)
+
     isEditing = !isEditing
+    console.log("After change STATE: ",btnName, isEditing)
   }
 </script>
 
-<div>
+<p class="IPaddressTEXT">IPアドレス</p>
+
+<div class="container">
   {#if isEditing}
-    <input type="input" bind:value={ipAddress} />
-    <input type="button" value="Save" on:click={toggleEditing} />
+    <div class="ip-input-box">
+      <input class="input-ip" type="input" bind:value={ipAddress} />
+      <input class="input-btn"  type="button" value="保存" on:click={() => toggleEditing('保存')} />
+    </div>
   {:else}
-    <div style="display: flex">
-      <p style="border: solid 1px black; padding: 0.8rem; margin: 0;">
+    <div class="ip-add-box" >
+      <p class="show-ip" >
         {ipAddress}
       </p>
-      <button on:click={toggleEditing}>Edit</button>
+      <button class="input-btn" on:click={() => toggleEditing('編集')}>編集</button>
     </div>
   {/if}
 
@@ -33,4 +40,31 @@
 </div>
 
 <style>
+  .IPaddressTEXT{
+    color: white;
+    margin: 0;
+    font-size: 1rem;
+    padding: 1rem;
+  }
+  .container {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+  .input-ip {
+    border: solid 1px black;
+  }
+  .input-btn {
+    padding: 0 1rem;
+    margin-left: 1rem;
+  }
+
+  .ip-add-box {
+    display: flex;
+  }
+
+  .show-ip {
+    margin: 0;
+    color: white;
+  }
+
 </style>
