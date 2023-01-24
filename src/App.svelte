@@ -1,12 +1,15 @@
 <script>
   import VideoStream from './components/VideoStream.svelte'
+  let ipAddressA = localStorage.getItem('firstIPaddress')
+  let ipAddressB = localStorage.getItem('secondIPaddress')
+
 </script>
 
 <main>
   <h1>Svelte Camera Viewer</h1>
-  <VideoStream />
-  <VideoStream ipAddress="192.168.1.10" />
-  <!-- <CameraB /> -->
+<VideoStream ipAddress={ipAddressA} stragekey='firstIPaddress'/>
+<VideoStream ipAddress={ipAddressB} stragekey='secondIPaddress'/>
+
 </main>
 
 <style>

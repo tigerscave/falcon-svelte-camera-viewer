@@ -1,10 +1,12 @@
 <script>
   export let ipAddress = ''
+  export let stragekey = ''
+  
   let isEditing = !ipAddress
 
   function toggleEditing() {
-
     isEditing = !isEditing
+    localStorage.setItem(stragekey,ipAddress);
   }
 </script>
 
