@@ -9,36 +9,38 @@
     localStorage.setItem(stragekey,ipAddress);
   }
 
-  function noaction(){
-    setTimeout(reload,100);
+  // プリセット保存した際の画面遷移を防止するため、ページをリロードする関数を追加
+  function reloadAfter100ms(){
+    setTimeout(() => {
+    location.reload()
+    }, 100)
   }
 
-  function reload() {
-    location.reload();
-  }
-
-  let iframeEl;
-
-  function handleIframeError() {
-    let text = document.getElementById('pptag').innerText;
-    document.getElementById('pptag').innerText = 'オンライン';
-  }
-
+  let linkStatus = new XMLHttpRequest();
+    linkStatus.open('GET', 'http://192.168.1.240:7011/ImageViewer?Mode=Motion&Resolution=500x800&Quality=Standard&Interval=10');
+    linkStatus.send();
+    linkStatus.onload = function() {
+    if (linkStatus.status != 200) {
+      console.log('オンライン')
+    } else {
+      console.log('オフライン');
+    }
+  };
 </script>
-<p id='pptag'>オフライン</p>
-<a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=2" class="ZoomBtn"><img src="img/zoom.png" alt="次へ" class="ZoomPng"></a>
+
+<a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=2" class="zoom-btn-ip"><img src="img/zoom.png" alt="zoom-btn" class="zoom-png"></a>
 <br>
-<a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=-2" class="ZoomOutBtn"><img src="img/zoomout.png" alt="次へ" class="ZoomOutPng"></a>
+<a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=-2" class="zoom-out-btn"><img src="img/zoomout.png" alt="zoom-out-btn" class="zoom-out-png"></a>
 <p>プリセット</p>
-<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=1" on:click={noaction} class="btn_03">①保存</a>
-<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=2" on:click={noaction} class="btn_03">②保存</a>
-<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=3" on:click={noaction} class="btn_03">③保存</a>
+<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=1" on:click={reloadAfter100ms} class="preset-btn">①保存</a>
+<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=2" on:click={reloadAfter100ms} class="preset-btn">②保存</a>
+<a href="http://nwcadmin:Passwd34@{ipAddress}:7011/cgi-bin/camposiset?presetset=3" on:click={reloadAfter100ms} class="preset-btn">③保存</a>
 
 <a href="http://{ipAddress}:7011/cgi-bin/camctrl?preset=1" class="btn">プリセット1移動</a>
 <a href="http://{ipAddress}:7011/cgi-bin/camctrl?preset=2" class="btn">プリセット2移動</a>
 <a href="http://{ipAddress}:7011/cgi-bin/camctrl?preset=3" class="btn">プリセット3移動</a>
 
-<p class="IPaddressTEXT">IPアドレス</p>
+<p class="ipaddress-text">IPアドレス</p>
 
 <div class="container">
   {#if isEditing}
@@ -54,14 +56,11 @@
       <button class="input-btn" on:click={toggleEditing}>編集</button>
     </div>
   {/if}
-
   <br />
   <!-- svelte-ignore a11y-missing-attribute -->
   <iframe
     name="ifr1"
     id="ifr1"
-    bind:this={iframeEl}
-    on:load={handleIframeError}
     src="http://{ipAddress}:7011/ImageViewer?Mode=Motion&Resolution=500x800&Quality=Standard&Interval=10"
     width="800"
     height="500"
@@ -70,7 +69,7 @@
 </div>
 
 <style>
-  .IPaddressTEXT{
+  .ipaddress-text{
     color: white;
     margin: 0;
     font-size: 1rem;
@@ -80,7 +79,7 @@
     font-size: 1.2rem;
     padding: 1rem;
   }
-  .input-ip {
+  .input-ip{
     border: solid 1px black;
     height: 25px;
     width: 130px;
@@ -101,55 +100,37 @@
     width: 130px;
     font-size: 80%;
   }
-  .ZoomBtn{
+  .zoom-btn-ip{
     color: white;
     width: 10%;
     height: auto;
   }
-  .ZoomOutBtn{
+  .zoom-out-btn{
     color: white;
   }
-  .ZoomPng{
+  .zoom-png{
     width: 1.5%;
     height: auto;
   }
-  .ZoomOutPng{
+  .zoom-out-png{
     width: 1.5%;
     height: auto;
   }
-
-  a.btn_03 {
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	width: 120px;
-	margin: auto;
-	padding: 0.5rem 0rem;
-	font-weight: bold;
-	border: 2px solid #27acd9;
-	color: #27acd9;
-	border-radius: 100vh;
-	transition: 0.5s;
-}
-a.btn_03:hover {
-	color: #fff;
-	background: #27acd9;
-}
-
+  .preset-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    width: 120px;
+    margin: auto;
+    padding: 0.5rem 0rem;
+    font-weight: bold;
+    border: 2px solid #27acd9;
+    color: #27acd9;
+    border-radius: 100vh;
+    transition: 0.5s;
+  }
+  .preset-btn:hover {
+    color: #fff;
+    background: #27acd9;
+  }
 </style>
-
-
-
-
-<!-- <iframe
-  bind:this={iframeEl}
-  on:error={handleIframeError}
-></iframe>
-
-<script>
-  let iframeEl;
-
-  function handleIframeError() {
-    console.log("iframe connection error");
-  }
-</script> -->
