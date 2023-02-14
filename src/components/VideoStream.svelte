@@ -1,4 +1,5 @@
 <script>
+  
   export let ipAddress = ''
   export let stragekey = ''
   
@@ -7,6 +8,7 @@
   function toggleEditing() {
     isEditing = !isEditing
     localStorage.setItem(stragekey,ipAddress);
+    onlineJudge();
   }
 
   // プリセット保存した際の画面遷移を防止するため、ページをリロードする関数を追加
@@ -16,18 +18,7 @@
     }, 100)
   }
 
-  let linkStatus = new XMLHttpRequest();
-    linkStatus.open('GET', 'http://192.168.1.240:7011/ImageViewer?Mode=Motion&Resolution=500x800&Quality=Standard&Interval=10');
-    linkStatus.send();
-    linkStatus.onload = function() {
-    if (linkStatus.status != 200) {
-      console.log('オンライン')
-    } else {
-      console.log('オフライン');
-    }
-  };
 </script>
-
 <a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=2" class="zoom-btn-ip"><img src="img/zoom.png" alt="zoom-btn" class="zoom-png"></a>
 <br>
 <a href="http://{ipAddress}:7011/cgi-bin/directctrl?zoom=-2" class="zoom-out-btn"><img src="img/zoomout.png" alt="zoom-out-btn" class="zoom-out-png"></a>
@@ -57,6 +48,7 @@
     </div>
   {/if}
   <br />
+  <p class="conecting-txt">{name}</p>
   <!-- svelte-ignore a11y-missing-attribute -->
   <iframe
     name="ifr1"
@@ -67,6 +59,7 @@
   />
   <br />
 </div>
+
 
 <style>
   .ipaddress-text{
@@ -132,5 +125,8 @@
   .preset-btn:hover {
     color: #fff;
     background: #27acd9;
+  }
+  .conecting-txt{
+    color: white;
   }
 </style>
