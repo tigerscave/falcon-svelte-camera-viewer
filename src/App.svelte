@@ -13,7 +13,6 @@
   socket.on('connect', function() { 
     socket.on('receive_ping', (value) => { 
       pingResultText = value ? 'Online' : 'Offline'
-      console.log(pingResultText)
     });
   });
 
